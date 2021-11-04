@@ -1,0 +1,97 @@
+body{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: beige;
+    margin: 0;
+}
+
+.container{
+    background-image: url("/static/img/binary3.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-top: 10px;
+
+}
+
+button{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: rgba(0, 0, 0, 0.8);
+    background-color: beige;
+    font-size: 18px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    width: 70px;
+    border-style: none;
+    border: solid 2px beige;
+    margin-top: 10px;
+
+}
+
+button:hover{
+    background-color: rgba(0, 0, 0, 0.7);
+    color: beige;
+}
+
+
+.top{
+    background-color: rgba(0,0,0,0.5);
+    height: 10vh;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px 20px 10px 20px;
+    margin-top: 10px;
+}
+
+#clock{
+    position:absolute;
+    top: 7vh;
+    right: 50px;
+    font-size: 20px;
+    border: 2px solid beige;
+    padding: 5px;
+    width: 120px;
+    border-radius: 5px;
+
+}
+
+h1{
+    margin: auto;
+    margin-top: 2.8vh;
+}
+
+.main{
+    display: flex;
+    height: 90vh; 
+    max-width: 98vw;
+    margin: auto;
+}
+
+.widget{
+    height: 80vh;
+    background-color: rgba(0,0,0,0.4); 
+    margin: 8px;
+    padding: 5px;
+    padding-top: 0px;
+    width: 32%;
+    min-width: 300px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.notepad{
+    max-width: 30vw;
+    font-size: 20px;
+}
+
+#note-area{
+    font-size: 18px;
+    max-width: 28vw;
+    max-height: 58vh;
+    min-height: 25vh;
+    border-radius: 10px;
+}
+
+
+
+
+
