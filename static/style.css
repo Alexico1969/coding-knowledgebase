@@ -37,7 +37,7 @@ button:focus{
 }
 
 .domain_btn{
-    width:200px;
+    width:150px;
 }
 
 .top_btn{
@@ -46,6 +46,10 @@ button:focus{
     display: inline;
     float: left;
     margin-right: 10px;
+}
+
+.submit_btn{
+    background-color: seagreen;
 }
 
 input[type="radio"] {
@@ -181,6 +185,38 @@ h1{
     font-size: 20px;
     padding-left: 10px;
    
+}
+
+.topic_area{
+    font-size: 20px;
+    max-width: 24vw;
+    min-width: 15vw;
+    min-height: 10vh;
+    max-height: 30vh;
+}
+
+.problem_area{
+    font-size: 20px;
+    max-width: 32vw;
+    min-width: 15vw;
+    min-height: 10vh;
+    max-height: 30vh;
+}
+
+.solution_area{
+    font-size: 20px;
+    max-width: 32vw;
+    min-width: 15vw;
+    min-height: 10vh;
+    max-height: 30vh;
+}
+
+.left{
+    text-align: left;
+}
+
+.pad10vw{
+    padding-left: 10vw;
 }
 
 

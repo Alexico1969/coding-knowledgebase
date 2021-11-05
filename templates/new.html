@@ -20,26 +20,69 @@
             <div id="clock"></div>
         </div>
         <div class="main">
-            <form class="domain_form_new">
+            
                 <div id="index1">
                     <h2>Domains</h2>
-                
+                <form class="domain_form_new">
                     {% for domain in domain_list %}
                         <input type="radio" id="{{domain}}" name="domain" class="domain_radio" value="{{domain}}">
                         <label  class="domain_radio" for="{{domain}}">{{domain}}</label><br><br>
                     {% endfor %}
+                </form>    
+                </div>
                 <div id="index2">
                     <h2>Topic</h2>
+                    <textarea id="topic_input" class="topic_area" rows="7" cols="30"></textarea>
                 </div>
                 <div id="knowledge">
                     <h2>Knowledge</h2>
+                    <br>
+                    <h3 class="left pad10vw">&#187; Problem</h3>
+                    <textarea id="problem_input" class="problem_area" rows="6" cols="80"></textarea>
+                    <br>
+                    <h3 class="left pad10vw">&#187; Solution</h3>
+                    <textarea id="solution_input" class="solution_area" rows="6" cols="80"></textarea>
+                    <br>
+                    <button class="submit_btn">Save</button>
                 </div>
-            </form>
+            
         </div>
     </div>
 </body>
 
 <script>
+    $(".submit_btn").click(post);
+
+    function success(){
+        alert("Saved to DB");
+    }
+
+    function post(){
+        var domain = $("input:radio[name='domain']:checked").val();
+        var topic = $("#topic_input").val();
+        var problem = $("#problem_input").val();
+        var solution = $("#solution_input").val();
+        console.log(domain);
+        console.log(topic);
+        console.log(problem);
+        console.log(solution);
+        var data= {
+            "domain":domain,
+            "topic":topic,
+            "problem":problem,
+            "solution":solution
+        }
+        console.log(data);
+        
+       $.ajax({
+            type: "POST",
+            url: "/new",
+            data: data,
+            success: success,
+            dataType: "json"
+            });
+
+   } 
 
 </script>
 </html>

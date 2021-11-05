@@ -45,7 +45,7 @@ def create_tables():
                                         role text NOT NULL
                                     ); """
     c.execute(query)
-    
+
     query = """ CREATE TABLE IF NOT EXISTS domains (
                                         domain_id integer PRIMARY KEY,
                                         name text NOT NULL                                    
@@ -77,8 +77,12 @@ def create_starter_data():
     database = "knowledge.db"
     conn = connect_to_db(database)
     c = conn.cursor()
+
+    query = "clear table domains"
+    c.execute(query)
+    
     query = '''INSERT INTO domains (name)
-                VALUES( "HTML"), ("CSS"), ("HTML/CSS"), ("JS"), ("HTML/CSS/JS"), ("JQuery"), ("Python"), ("Flask"), ("Misc");'''
+                VALUES( "HTML"), ("CSS"), ("JS"), ("HTML/CSS/JS"), ("JQuery"), ("SQL"), ("Python"), ("Flask"), ("Misc");'''
     c.execute(query)
     conn.commit()
 
@@ -93,3 +97,26 @@ def get_domains():
     for d in data:
         output.append(d[0])
     return output
+
+def add_knowledge(domain, topic, problem, solution):
+    database = "knowledge.db"
+    conn = connect_to_db(database)
+    c = conn.cursor()
+    query = '''select domain_id from domains where name=?'''
+    c.execute(query, (domain,))
+    data = c.fetchall()
+    domain_id = data[0][0]
+
+    query = '''insert into topics (name) values (?)'''
+    c.execute(query, (topic,))
+    conn.commit()
+
+    query = '''select topic_id from topics where name=?'''
+    c.execute(query, (topic,))
+    data = c.fetchall()
+    topic_id = data[0][0]
+    
+    query = '''insert into knowledge (domain, topic ,problem, solution) values (?,?,?,?)'''
+    c.execute(query, (domain_id, topic_id, problem, solution))
+    conn.commit()
+    print("!! new knowledge added !")
