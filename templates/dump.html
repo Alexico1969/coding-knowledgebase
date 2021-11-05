@@ -22,19 +22,24 @@
             <div id="index1">
                 <h2>Domains</h2>
                 {% for domain in domain_list %}
-                    <p><button class="domain_btn">{{domain}}</button></p>
+                    <p>{{domain}}</p>
                 {% endfor %}
             </div>
             <div id="index2">
                 <h2>Topics</h2>
                 <div class="topic_list">
                     {% for topic in topic_list %}
-                        <p><button class="topic_btn">{{topic}}</button></p>
+                        <p>{{topic}}</p>
                     {% endfor %}
                 </div>
             </div>
             <div id="knowledge">
                 <h2>Knowledge</h2>
+                <div class="knowledge_list">
+                    {% for k in knowledge_list %}
+                        <p>{{k}}</p>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>

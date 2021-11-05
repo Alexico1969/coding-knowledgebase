@@ -24,18 +24,29 @@ def connect_to_db(db_file):
 
     return conn
 
-def create_tables():
-    print(">> Checkpoint Beta" )
+def drop_tables():
     database = "knowledge.db"
     conn = connect_to_db(database)
 
     c = conn.cursor()
 
-    '''query = "drop table users"
+    query = "drop table users"
     c.execute(query)
     query = "drop table domains"
     c.execute(query)
-    '''
+    query = "drop table domains"
+    c.execute(query)
+    query = "drop table domains"
+    c.execute(query)
+    
+    conn.commit()
+    c = conn.cursor()
+
+def create_tables():
+    database = "knowledge.db"
+    conn = connect_to_db(database)
+
+    c = conn.cursor()
 
     query = """ CREATE TABLE IF NOT EXISTS users (
                                         user_id_id integer PRIMARY KEY,
@@ -78,7 +89,7 @@ def create_starter_data():
     conn = connect_to_db(database)
     c = conn.cursor()
 
-    query = "clear table domains"
+    query = "delete from domains"
     c.execute(query)
     
     query = '''INSERT INTO domains (name)
@@ -93,9 +104,39 @@ def get_domains():
     query = '''select name from domains'''
     c.execute(query)
     data = c.fetchall()
+    print(">> this is get_domains data: ", data)
     output = []
     for d in data:
         output.append(d[0])
+    return output
+
+def get_topics():
+    database = "knowledge.db"
+    conn = connect_to_db(database)
+    c = conn.cursor()
+    query = '''select name from topics'''
+    c.execute(query)
+    data = c.fetchall()
+    output = []
+    print(">> this is get_topics data: ", data)
+    for d in data:
+        output.append(d[0])
+    return output
+
+def get_knowledge(id):
+    print("todo")
+
+def get_knowledge_all():
+    database = "knowledge.db"
+    conn = connect_to_db(database)
+    c = conn.cursor()
+    query = '''select domain, topic, problem, solution from knowledge'''
+    c.execute(query)
+    data = c.fetchall()
+    output = []
+    print(">> this is get_knowledge data: ", data)
+    for d in data:
+        output.append(d[2])
     return output
 
 def add_knowledge(domain, topic, problem, solution):
@@ -105,8 +146,11 @@ def add_knowledge(domain, topic, problem, solution):
     query = '''select domain_id from domains where name=?'''
     c.execute(query, (domain,))
     data = c.fetchall()
-    domain_id = data[0][0]
-
+    try:
+        domain_id = data[0][0]
+    except:
+        print("error with data, data = ", data)
+        print("error with data, name to be found = ", domain)
     query = '''insert into topics (name) values (?)'''
     c.execute(query, (topic,))
     conn.commit()
@@ -116,7 +160,29 @@ def add_knowledge(domain, topic, problem, solution):
     data = c.fetchall()
     topic_id = data[0][0]
     
-    query = '''insert into knowledge (domain, topic ,problem, solution) values (?,?,?,?)'''
+    query = '''insert into knowledge (domain, topic , problem, solution) values (?,?,?,?)'''
     c.execute(query, (domain_id, topic_id, problem, solution))
     conn.commit()
     print("!! new knowledge added !")
+    print("domain_id:", domain_id)
+    print("topic_id:", topic_id)
+    print("problem:", problem)
+    print("solution:", solution)
+
+def clear_table_knowledge():
+    database = "knowledge.db"
+    conn = connect_to_db(database)
+    c = conn.cursor()
+    query = '''delete from knowledge;'''
+    c.execute(query)
+    conn.commit()
+    print("** Table knowledge CLEARED **")
+
+def clear_table_topics():
+    database = "knowledge.db"
+    conn = connect_to_db(database)
+    c = conn.cursor()
+    query = '''delete from topics where topic_id>=0;'''
+    c.execute(query)
+    conn.commit()
+    print("** Table topics CLEARED **")

@@ -40,6 +40,11 @@ button:focus{
     width:150px;
 }
 
+topic_btn{
+    min-width: 200px;
+    max-width: 350px;
+}
+
 .top_btn{
     background-color: powderblue;
     border-color:powderblue;
@@ -219,5 +224,8 @@ h1{
     padding-left: 10vw;
 }
 
-
+.topic_list{
+    height: 70vh;
+    overflow: scroll;
+}
 
