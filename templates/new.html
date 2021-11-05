@@ -16,23 +16,25 @@
                 <a href="/new"><button class="top_btn">New</button></a>
             </div>
             <h1>Coding knowledgebase</h1>
+            <div id="new_warning">New</div>
             <div id="clock"></div>
         </div>
         <div class="main">
-            <div id="index1">
-                <h2>Domains</h2>
-                <form>
-                {% for domain in domain_list %}
-                    <p><button class="domain_btn">{{domain}}</button></p>
-                {% endfor %}
-                </form>
-            </div>
-            <div id="index2">
-                <h2>Topics</h2>
-            </div>
-            <div id="knowledge">
-                <h2>Knowledge</h2>
-            </div>
+            <form class="domain_form_new">
+                <div id="index1">
+                    <h2>Domains</h2>
+                
+                    {% for domain in domain_list %}
+                        <input type="radio" id="{{domain}}" name="domain" class="domain_radio" value="{{domain}}">
+                        <label  class="domain_radio" for="{{domain}}">{{domain}}</label><br><br>
+                    {% endfor %}
+                <div id="index2">
+                    <h2>Topic</h2>
+                </div>
+                <div id="knowledge">
+                    <h2>Knowledge</h2>
+                </div>
+            </form>
         </div>
     </div>
 </body>
