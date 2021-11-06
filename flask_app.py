@@ -9,8 +9,8 @@ create_connection(r"knowledge.db")
 #drop_tables()
 #create_tables()
 #create_starter_data()  # run just once to get the first domains in the db
-clear_table_knowledge()  # if you want to empty table knowledge
-clear_table_topics()  # if you want to empty table topics
+#clear_table_knowledge()  # if you want to empty table knowledge
+#clear_table_topics()  # if you want to empty table topics
 
 @app.route('/',methods=['GET','POST'])
 def home():
@@ -24,14 +24,12 @@ def home():
 
 @app.route('/new',methods=['GET','POST'])
 def new():
-    print("## New !")
     domain_list = []
     if request.method == "POST":
         domain = request.form["domain"]
         topic = request.form["topic"]
         problem = request.form["problem"]
         solution = request.form["solution"]
-        print(">> In route 'new':",domain, topic, problem, solution)
         add_knowledge(domain, topic, problem, solution)
     else:
         

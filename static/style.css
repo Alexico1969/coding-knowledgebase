@@ -226,6 +226,6 @@ h1{
 
 .topic_list{
     height: 70vh;
-    overflow: scroll;
+    overflow-y: scroll;
 }
 

@@ -104,7 +104,6 @@ def get_domains():
     query = '''select name from domains'''
     c.execute(query)
     data = c.fetchall()
-    print(">> this is get_domains data: ", data)
     output = []
     for d in data:
         output.append(d[0])
@@ -118,7 +117,6 @@ def get_topics():
     c.execute(query)
     data = c.fetchall()
     output = []
-    print(">> this is get_topics data: ", data)
     for d in data:
         output.append(d[0])
     return output
@@ -134,7 +132,6 @@ def get_knowledge_all():
     c.execute(query)
     data = c.fetchall()
     output = []
-    print(">> this is get_knowledge data: ", data)
     for d in data:
         output.append(d[2])
     return output
