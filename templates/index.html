@@ -6,6 +6,7 @@
     <title>Coding Knowledgebase</title>
     <link rel="stylesheet" href="/static/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
     <script src="/static/scripts.js"></script>
 </head>
 <body onload="startTime()">
@@ -29,6 +30,7 @@
                 <h2>Topics</h2>
                 <input class="topic_search" type="text">
                 <button class="search_btn">&#x1F50D;</button>
+                
                 <div class="topic_list">
                     {% for topic in topic_list %}
                         <p class="topic">{{topic}}</p>
@@ -37,12 +39,20 @@
             </div>
             <div id="knowledge">
                 <h2>Knowledge</h2>
+                <br>
+                <h3>Problem</h3>
+                <div id="problem">{{problem|safe}}</div>
+                <br>
+                <h3>Solution</h3>
+                <div id="solution">{{solution|safe}}</div>
             </div>
         </div>
     </div>
 </body>
 
 <script>
+    var domain = "";
+    var topic = "";
     $(".domain_btn").click(function(event) {
         console.log("Checkpoint Alpha");
         $(".domain_btn").css("background-color", "beige");
@@ -50,6 +60,37 @@
         $(this).css("background-color", "darkcyan");
         $(this).css("border-color", "darkcyan");
     });
+    $(".topic").click(function(event){
+        console.log($(this).text())
+
+        topic = $(this).text();
+        action = "s_topic"
+
+        var data= {
+                "action":action,
+                "topic":topic
+            }
+            console.log(data);
+            
+            $.ajax({
+                type: "POST",
+                url: "/",
+                data: data,
+                success: function(){console.log("!!!");},
+                complete: function(response){
+                    var problem = Cookies.get("problem");
+                    var solution = Cookies.get("solution");
+                    console.log("problem: ", problem);
+                    $("#problem").html("<p class='problem'>" + problem + "</p>");
+                    $("#solution").html("<p class='solution'>" + solution + "</p>");
+                    }
+                    ,
+                dataType: "json"
+                });
+            
+    })
+
+
 </script>
 </html>
 

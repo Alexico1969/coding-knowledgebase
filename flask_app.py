@@ -1,7 +1,7 @@
-from flask import Flask,redirect,url_for,render_template,request
+from flask import Flask,redirect,url_for,render_template,request, make_response
 import sqlite3
 from sqlite3 import Error
-from db import create_connection, create_tables, create_starter_data, get_domains, get_topics, get_knowledge, get_knowledge_all, add_knowledge, clear_table_knowledge, clear_table_topics, drop_tables
+from db import create_connection, create_tables, create_starter_data, get_domains, get_topics, get_knowledge, get_knowledge_all, add_knowledge, clear_table_knowledge, clear_table_topics, drop_tables, get_1_topic
 
 app=Flask(__name__, static_url_path='/static')
 
@@ -17,10 +17,26 @@ def home():
     domain_list = []  
     domain_list = get_domains()
     topic_list = []
-    topic_list = get_topics()
+    problem = "INIT"
+    
     if request.method == "POST":
-        print("todo")  
-    return render_template('index.html', domain_list=domain_list, topic_list=topic_list)
+        action = request.form["action"]
+        if action == "s_topic":
+            topic = request.form["topic"]
+            topic_dict = get_1_topic(topic)
+            problem = topic_dict["problem"].replace("\054","<br>")
+            solution = topic_dict["solution"].replace("\054","<br>")
+            resp = make_response(render_template('index.html', domain_list=domain_list, topic_list=topic_list, problem=problem, solution=solution))
+            resp.set_cookie('problem', problem)
+            resp.set_cookie('solution',solution)
+    else:
+        problem = ""
+        solution = ""
+        topic_list = get_topics()
+        resp = make_response(render_template('index.html', domain_list=domain_list, topic_list=topic_list, problem=problem, solution=solution))
+
+
+    return resp
 
 @app.route('/new',methods=['GET','POST'])
 def new():

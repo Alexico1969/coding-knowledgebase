@@ -231,3 +231,11 @@ h1{
     width: 70%;
 }
 
+#problem, #solution{
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 10px;
+    background-color:rgba(0, 0, 0, 0.3);
+    height: 150px;
+}
+

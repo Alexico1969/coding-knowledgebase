@@ -161,10 +161,6 @@ def add_knowledge(domain, topic, problem, solution):
     c.execute(query, (domain_id, topic_id, problem, solution))
     conn.commit()
     print("!! new knowledge added !")
-    print("domain_id:", domain_id)
-    print("topic_id:", topic_id)
-    print("problem:", problem)
-    print("solution:", solution)
 
 def clear_table_knowledge():
     database = "knowledge.db"
@@ -183,3 +179,22 @@ def clear_table_topics():
     c.execute(query)
     conn.commit()
     print("** Table topics CLEARED **")
+
+def get_1_topic(topic):
+    output = {}
+    output["topic"] = topic
+    output["problem"] = "temp_problem"
+    output["solution"] = "temp_solution"
+    database = "knowledge.db"
+    conn = connect_to_db(database)
+    c = conn.cursor()
+    query = "select topic_id from topics where name=?"
+    c.execute(query,(topic,))
+    data = c.fetchone()
+    topic_id = data[0]
+    query = "select problem, solution from knowledge where topic=?"
+    c.execute(query,(topic_id,))
+    data = c.fetchone()
+    output["problem"] = data[0]
+    output["solution"] = data[1]
+    return output
