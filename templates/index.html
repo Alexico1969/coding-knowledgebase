@@ -27,9 +27,11 @@
             </div>
             <div id="index2">
                 <h2>Topics</h2>
+                <input class="topic_search" type="text">
+                <button class="search_btn">&#x1F50D;</button>
                 <div class="topic_list">
                     {% for topic in topic_list %}
-                        <p><button class="topic_btn">{{topic}}</button></p>
+                        <p class="topic">{{topic}}</p>
                     {% endfor %}
                 </div>
             </div>
@@ -41,7 +43,13 @@
 </body>
 
 <script>
-
+    $(".domain_btn").click(function(event) {
+        console.log("Checkpoint Alpha");
+        $(".domain_btn").css("background-color", "beige");
+        $(".domain_btn").css("border-color", "beige");
+        $(this).css("background-color", "darkcyan");
+        $(this).css("border-color", "darkcyan");
+    });
 </script>
 </html>
 

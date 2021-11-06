@@ -25,24 +25,18 @@ button{
 }
 
 button:hover{
-    background-color: rgba(0, 0, 0, 0.7);
-    color: beige;
-    border-color: rgba(0, 0, 0, 0.7);
-}
-
-button:focus{
-    background-color: darkcyan;
-    color: white;
-    border-color : darkcyan;
+    border-color: black;
+    background-color: lightyellow;
 }
 
 .domain_btn{
     width:150px;
 }
 
-topic_btn{
-    min-width: 200px;
-    max-width: 350px;
+.domain_btn:focus{
+    background-color: darkcyan;
+    color: white;
+    border-color : darkcyan;
 }
 
 .top_btn{
@@ -226,6 +220,14 @@ h1{
 
 .topic_list{
     height: 70vh;
-    overflow-y: scroll;
+    overflow-y: auto;
+}
+
+.topic_search{
+    font-size: 40;
+    border: 2px black solid;
+    border-radius: 10px;
+    height: 36px;
+    width: 70%;
 }
 
