@@ -24,8 +24,8 @@ def home():
         if action == "s_topic":
             topic = request.form["topic"]
             topic_dict = get_1_topic(topic)
-            problem = topic_dict["problem"].replace("\054","<br>")
-            solution = topic_dict["solution"].replace("\054","<br>")
+            problem = topic_dict["problem"].replace("\054","<br>").replace("\012","<br>")
+            solution = topic_dict["solution"].replace("\054","<br>").replace("\012","<br>")
             resp = make_response(render_template('index.html', domain_list=domain_list, topic_list=topic_list, problem=problem, solution=solution))
             resp.set_cookie('problem', problem)
             resp.set_cookie('solution',solution)

@@ -21,7 +21,6 @@ button{
     padding: 5px 10px;
     border-style: none;
     border: solid 2px beige;
-    margin-top: 10px;
 }
 
 button:hover{
@@ -49,6 +48,10 @@ button:hover{
 
 .submit_btn{
     background-color: seagreen;
+}
+
+.search_btn{
+    margin-left: 20px;
 }
 
 input[type="radio"] {
@@ -175,7 +178,7 @@ h1{
 
 .domain_radio{
     font-size: 20px;
-    padding-bottom: 15px;
+    padding-bottom: 10px;
     padding-left: 5px;
 }
 
@@ -232,10 +235,22 @@ h1{
 }
 
 #problem, #solution{
+    text-align: left;
     margin-left: 20px;
     margin-right: 20px;
-    padding: 10px;
+    padding: 10px 20px 10px 20px;
     background-color:rgba(0, 0, 0, 0.3);
     height: 150px;
+}
+
+.topic:hover{
+    user-select: none;
+    cursor:pointer;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.topic:focus{
+    background-color: rgba(0, 0, 0, 0.3);
+    border: solid beige 2px;
 }
 
