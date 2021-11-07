@@ -1,7 +1,8 @@
 from flask import Flask,redirect,url_for,render_template,request, make_response
 import sqlite3
 from sqlite3 import Error
-from db import create_connection, create_tables, create_starter_data, get_domains, get_topics, get_knowledge, get_knowledge_all, add_knowledge, clear_table_knowledge, clear_table_topics, drop_tables, get_1_topic
+from db import create_connection, create_tables, create_starter_data, get_domains, get_topics, get_knowledge, get_knowledge_all
+from db import add_knowledge, clear_table_knowledge, clear_table_topics, drop_tables, get_1_topic, topics_filtered, fix
 
 app=Flask(__name__, static_url_path='/static')
 
@@ -11,17 +12,19 @@ create_connection(r"knowledge.db")
 #create_starter_data()  # run just once to get the first domains in the db
 #clear_table_knowledge()  # if you want to empty table knowledge
 #clear_table_topics()  # if you want to empty table topics
+fix()
 
 @app.route('/',methods=['GET','POST'])
 def home():
     domain_list = []  
     domain_list = get_domains()
     topic_list = []
-    problem = "INIT"
+    problem = ""
+    solution = ""
     
     if request.method == "POST":
         action = request.form["action"]
-        if action == "s_topic":
+        if action == "s_topic": #als de $.ajax gebruikt is (een van de topics geklikt)
             topic = request.form["topic"]
             topic_dict = get_1_topic(topic)
             problem = topic_dict["problem"].replace("\054","<br>").replace("\012","<br>")
@@ -29,9 +32,12 @@ def home():
             resp = make_response(render_template('index.html', domain_list=domain_list, topic_list=topic_list, problem=problem, solution=solution))
             resp.set_cookie('problem', problem)
             resp.set_cookie('solution',solution)
+        else: #als een van de domain buttons geklikt is.
+            domain = request.form["action"]
+            topic_list = topics_filtered(domain)
+            resp = make_response(render_template('index.html', domain_list=domain_list, topic_list=topic_list, problem=problem, solution=solution))
+            
     else:
-        problem = ""
-        solution = ""
         topic_list = get_topics()
         resp = make_response(render_template('index.html', domain_list=domain_list, topic_list=topic_list, problem=problem, solution=solution))
 

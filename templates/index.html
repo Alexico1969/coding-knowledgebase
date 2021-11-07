@@ -22,9 +22,11 @@
         <div class="main">
             <div id="index1">
                 <h2>Domains</h2>
-                {% for domain in domain_list %}
-                    <p><button class="domain_btn">{{domain}}</button></p>
-                {% endfor %}
+                <form method="POST">
+                    {% for domain in domain_list %}
+                        <p><button type="submit" name="action" value="{{domain}}" class="domain_btn">{{domain}}</button></p>
+                    {% endfor %}
+                </form>
             </div>
             <div id="index2">
                 <h2>Topics</h2>

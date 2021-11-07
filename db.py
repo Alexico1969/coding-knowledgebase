@@ -113,7 +113,7 @@ def get_topics():
     database = "knowledge.db"
     conn = connect_to_db(database)
     c = conn.cursor()
-    query = '''select name from topics'''
+    query = '''select name, domain from topics'''
     c.execute(query)
     data = c.fetchall()
     output = []
@@ -134,6 +134,10 @@ def get_knowledge_all():
     output = []
     for d in data:
         output.append(d[2])
+    query = '''select name, domain from topics'''
+    c.execute(query)
+    data = c.fetchall()
+    print(">>> TOPIC DATA : ", data)
     return output
 
 def add_knowledge(domain, topic, problem, solution):
@@ -148,8 +152,8 @@ def add_knowledge(domain, topic, problem, solution):
     except:
         print("error with data, data = ", data)
         print("error with data, name to be found = ", domain)
-    query = '''insert into topics (name) values (?)'''
-    c.execute(query, (topic,))
+    query = '''insert into topics (name, domain) values (?,?)'''
+    c.execute(query, (topic,domain))
     conn.commit()
 
     query = '''select topic_id from topics where name=?'''
@@ -198,3 +202,30 @@ def get_1_topic(topic):
     output["problem"] = data[0]
     output["solution"] = data[1]
     return output
+
+def topics_filtered(domain):
+    output = []
+    database = "knowledge.db"
+    conn = connect_to_db(database)
+    c = conn.cursor()
+    query = "select domain_id from domains where name=?"
+    c.execute(query,(domain,))
+    data = c.fetchone()
+    domain_id = data[0]
+    query = "select name from topics where domain=?"
+    c.execute(query,(domain_id,))
+    data = c.fetchall()
+    if data:
+        for d in data:
+            output.append(d[0])
+        print("output:",output)
+        output = data[0]
+    return output
+
+def fix():
+    database = "knowledge.db"
+    conn = connect_to_db(database)
+    c = conn.cursor()
+    query = '''update topics set domain = 5 where name="After AJAX POST request from html file, no update on jinja2 variables"'''
+    c.execute(query)
+    conn.commit()
