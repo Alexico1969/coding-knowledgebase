@@ -294,6 +294,6 @@ def fix():
     query = '''delete from topics where topic_id=6'''
     c.execute(query)
     conn.commit()
-    query = '''delete from knownedge where topic=6'''
+    query = '''delete from knowledge where topic=6'''
     c.execute(query)
     conn.commit()

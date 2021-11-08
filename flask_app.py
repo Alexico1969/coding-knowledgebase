@@ -124,7 +124,7 @@ def dump():
     topic_list = []
     topic_list = get_topics()
     knowledge_list = []
-    knowledge_list = get_knowledge_all()
+    knowledge_list = get_knowledge_all()#
 
     if request.method == "POST":
         print("todo")
