@@ -291,6 +291,9 @@ def fix():
     database = "knowledge.db"
     conn = connect_to_db(database)
     c = conn.cursor()
-    query = '''update topics set domain = 5 where name="After AJAX POST request from html file, no update on jinja2 variables"'''
+    query = '''delete from topics where topic_id=6'''
+    c.execute(query)
+    conn.commit()
+    query = '''delete from knownedge where topic=6'''
     c.execute(query)
     conn.commit()
