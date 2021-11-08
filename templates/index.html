@@ -15,6 +15,7 @@
             <div class="top-menu">
                 <a href="/"><button class="top_btn">Search</button></a>
                 <a href="/new"><button class="top_btn">Add</button></a>
+                <a href="/change"><button class="top_btn">Change</button></a>
             </div>
             <h1>Coding knowledgebase</h1>
             <div id="clock"></div>
@@ -23,6 +24,7 @@
             <div id="index1">
                 <h2>Domains</h2>
                 <form method="POST">
+                    <p><button type="submit" name="action" value="All" class="domain_btn">* All *</button></p>
                     {% for domain in domain_list %}
                         <p><button type="submit" name="action" value="{{domain}}" class="domain_btn">{{domain}}</button></p>
                     {% endfor %}

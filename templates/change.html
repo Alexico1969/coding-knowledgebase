@@ -6,6 +6,7 @@
     <title>Coding Knowledgebase</title>
     <link rel="stylesheet" href="/static/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
     <script src="/static/scripts.js"></script>
 </head>
 <body onload="startTime()">
@@ -17,7 +18,7 @@
                 <a href="/change"><button class="top_btn">Change</button></a>
             </div>
             <h1>Coding knowledgebase</h1>
-            <div id="new_warning">New</div>
+            <div id="change_warning">Change</div>
             <div id="clock"></div>
         </div>
         <div class="main">
@@ -32,8 +33,18 @@
                 </form>    
                 </div>
                 <div id="index2">
-                    <h2>Topic</h2>
-                    <textarea id="topic_input" class="topic_area" rows="4" cols="36" required></textarea>
+                    <h2>Topics</h2>
+                    <form method="POST" action="">
+                    <input name="search_str" class="topic_search" type="text">
+                    <button type="submit" name="action" value="search" class="search_btn">&#x1F50D;</button>
+                    </form>
+                    <div class="topic_list">
+                    
+                        {% for topic in topic_list %}
+                            <p class="topic">{{topic}}</p>
+                        {% endfor %}
+                    
+                    </div>
                 </div>
                 <div id="knowledge">
                     <h2>Knowledge</h2>
@@ -44,7 +55,7 @@
                     <h3 class="left pad10vw">&#187; Solution</h3>
                     <textarea id="solution_input" class="solution_area" rows="6" cols="80" required></textarea>
                     <br>
-                    <button class="submit_btn">Save</button>
+                    <button class="submit_btn">Update</button>
                 </div>
             
         </div>
@@ -53,38 +64,74 @@
 
 <script>
     $(".submit_btn").click(post);
-
+    
     function success(){
         alert("Saved to DB");
     }
 
-    function post(){
-        var domain = $("input:radio[name='domain']:checked").val();
-        var topic = $("#topic_input").val();
-        var problem = $("#problem_input").val();
-        var solution = $("#solution_input").val();
+    /* -------- When clicked on a topic ---------*/
 
-        if (domain && topic && problem && solution){
-            var data= {
-                "domain":domain,
-                "topic":topic,
-                "problem":problem,
-                "solution":solution
+    $(".topic").click(function(event){
+        $("#JS").prop("checked",true);
+        topic = $(this).text();
+        Cookies.set('topic', topic);
+
+        action = "click_topic"
+        var data= {
+                "action":action,
+                "topic":topic
             }
             console.log(data);
             
             $.ajax({
                 type: "POST",
-                url: "/new",
+                url: "/change",
+                data: data,
+                success: function(){console.log("!!!");},
+                complete: function(response){
+                    var problem = Cookies.get("problem");
+                    var solution = Cookies.get("solution");
+                    var domain = Cookies.get("domain");
+                    $("#problem_input").val(problem);
+                    $("#solution_input").val(solution);
+                    domain_id = "#" + domain;
+                    console.log("domain_id:", domain_id);
+                    $(domain_id).prop("checked", true);
+                    }
+                    ,
+                dataType: "json"
+                });
+            
+    })
+
+    function post(){
+        var domain = $("input:radio[name='domain']:checked").val();
+        var topic = Cookies.get('topic', topic);
+        var problem = $("#problem_input").val();
+        var solution = $("#solution_input").val();
+
+        if (domain && topic && problem && solution){
+            var action = "update"
+            var data= {
+                "domain":domain,
+                "topic":topic,
+                "problem":problem,
+                "solution":solution,
+                "action": action
+            } 
+                        
+            $.ajax({
+                type: "POST",
+                url: "/change",
                 data: data,
                 success: success,
                 dataType: "json"
                 });
-            alert("Knowledge added !");
+            alert("Knowledge updated !");
             $("input:radio[name='domain']:checked").prop('checked', false);
             location.reload();
         } else {
-            alert("Fill in all fields please");
+            alert("Pic a topic to change please");
         }
        
    } 

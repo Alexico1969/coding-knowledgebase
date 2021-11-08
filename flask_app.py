@@ -3,7 +3,7 @@ import sqlite3
 from sqlite3 import Error
 from db import create_connection, create_tables, create_starter_data, get_domains, get_topics, get_knowledge, get_knowledge_all
 from db import add_knowledge, clear_table_knowledge, clear_table_topics, drop_tables, get_1_topic, topics_filtered, fix
-from db import topics_searched
+from db import topics_searched, change_knowledge
 
 app=Flask(__name__, static_url_path='/static')
 
@@ -25,7 +25,7 @@ def home():
     
     if request.method == "POST":
         action = request.form["action"]
-        print(">>>>> action:", action)
+        print(">>*>> action:", action)
         if action == "click_topic": #als de $.ajax gebruikt is (een van de topics geklikt)
             topic = request.form["topic"]
             topic_dict = get_1_topic(topic)
@@ -42,7 +42,10 @@ def home():
             resp = make_response(render_template('index.html', domain_list=domain_list, topic_list=topic_list, problem=problem, solution=solution))
         else: #als een van de domain buttons geklikt is.
             domain = request.form["action"]
-            topic_list = topics_filtered(domain)
+            if domain == "All":
+                topic_list = get_topics()
+            else:
+                topic_list = topics_filtered(domain)
             resp = make_response(render_template('index.html', domain_list=domain_list, topic_list=topic_list, problem=problem, solution=solution))
             
     else:
@@ -66,6 +69,53 @@ def new():
         domain_list = get_domains()
     
     return render_template('new.html', domain_list=domain_list)
+
+
+@app.route('/change',methods=['GET','POST'])
+def change():
+    domain_list = []
+    domain_list = get_domains()
+    topic_list = []
+    topic_list = get_topics()
+    problem = ""
+    solution = ""
+    
+    if request.method == "POST":
+        action = request.form["action"]
+        print(">>>>> action:", action)
+        if action == "click_topic": #als de $.ajax gebruikt is (een van de topics geklikt)
+            print("*** TOPIC CLICKED !! ***")
+            topic = request.form["topic"]
+            topic_dict = get_1_topic(topic)
+            problem = topic_dict["problem"].replace("\054","<br>").replace("\012","<br>")
+            solution = topic_dict["solution"].replace("\054","<br>").replace("\012","<br>")
+            domain = topic_dict["domain"]
+            print('*1', domain)
+            resp = make_response(render_template('change.html', domain_list=domain_list, topic_list=topic_list, problem=problem, solution=solution))
+            resp.set_cookie('problem', problem)
+            resp.set_cookie('solution',solution)
+            resp.set_cookie('domain', domain)
+        elif action == "update":
+            domain = request.form["domain"]
+            topic = request.form["topic"]
+            problem = request.form["problem"]
+            solution = request.form["solution"]
+            change_knowledge(domain, topic, problem, solution)
+            print("*2 action=", action)
+            resp = make_response(render_template('change.html', domain_list=domain_list, topic_list=topic_list, problem=problem, solution=solution))
+        else:
+            resp = make_response(render_template('change.html', domain_list=domain_list, topic_list=topic_list, problem=problem, solution=solution))
+
+
+       
+   
+    else:
+        domain_list = get_domains()
+        topic_list = get_topics()
+        resp = make_response(render_template('change.html', domain_list=domain_list, topic_list=topic_list, problem=problem, solution=solution))
+
+
+    return resp           
 
 @app.route('/dump',methods=['GET','POST'])
 def dump():

@@ -103,6 +103,19 @@ input[type="radio"] {
     border-radius: 5px;
 }
 
+#change_warning{
+    position:absolute;
+    top: 7vh;
+    right: 250px;
+    background-color: rgb(241, 202, 24);
+    color: black;
+    font-size: 20px;
+    border: 2px solid rgb(241, 202, 24);
+    padding: 5px;
+    width: 120px;
+    border-radius: 5px;
+}
+
 h1{
     margin: auto;
     margin-top: 2.8vh;

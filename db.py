@@ -166,6 +166,33 @@ def add_knowledge(domain, topic, problem, solution):
     conn.commit()
     print("!! new knowledge added !")
 
+def change_knowledge(domain, topic, problem, solution):
+    database = "knowledge.db"
+    conn = connect_to_db(database)
+    c = conn.cursor()
+    query = '''select domain_id from domains where name=?'''
+    c.execute(query, (domain,))
+    data = c.fetchall()
+    try:
+        domain_id = data[0][0]
+    except:
+        print("error with data, data = ", data)
+        print("error with data, name to be found = ", domain)
+    query = '''insert into topics (name, domain) values (?,?)'''
+    c.execute(query, (topic,domain))
+    conn.commit()
+
+    query = '''select topic_id from topics where name=?'''
+    c.execute(query, (topic,))
+    data = c.fetchall()
+    topic_id = data[0][0]
+    
+    query = '''insert into knowledge (domain, topic , problem, solution) values (?,?,?,?)'''
+    query= ''' update knowledge set domain=?, problem=?, solution =? where topic=?'''
+    c.execute(query, (domain_id, problem, solution, topic_id))
+    conn.commit()
+    print("!! Knowledge updated !")
+
 def clear_table_knowledge():
     database = "knowledge.db"
     conn = connect_to_db(database)
@@ -196,11 +223,17 @@ def get_1_topic(topic):
     c.execute(query,(topic,))
     data = c.fetchone()
     topic_id = data[0]
-    query = "select problem, solution from knowledge where topic=?"
+    query = "select domain, problem, solution from knowledge where topic=?"
     c.execute(query,(topic_id,))
     data = c.fetchone()
-    output["problem"] = data[0]
-    output["solution"] = data[1]
+    domain_id = data[0]
+    query = "select name from domains where domain_id=?"
+    c.execute(query,(domain_id,))
+    data2 = c.fetchone()
+    output["domain"] = data2[0]
+    output["problem"] = data[1]
+    output["solution"] = data[2]
+    print("*>", output)
     return output
 
 def topics_filtered(domain):
