@@ -137,7 +137,15 @@ def get_knowledge_all():
     query = '''select name, domain from topics'''
     c.execute(query)
     data = c.fetchall()
-    print(">>> TOPIC DATA : ", data)
+    query = '''select * from knowledge'''
+    c.execute(query)
+    data = c.fetchall()
+    print("------ > * from knowledge: ", data)
+    query = '''select * from topics'''
+    c.execute(query)
+    data = c.fetchall()
+    print("------ > * from topics: ", data)
+    
     return output
 
 def add_knowledge(domain, topic, problem, solution):
