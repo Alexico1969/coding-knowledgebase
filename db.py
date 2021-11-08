@@ -208,18 +208,42 @@ def topics_filtered(domain):
     database = "knowledge.db"
     conn = connect_to_db(database)
     c = conn.cursor()
-    query = "select domain_id from domains where name=?"
-    c.execute(query,(domain,))
-    data = c.fetchone()
-    domain_id = data[0]
-    query = "select name from topics where domain=?"
-    c.execute(query,(domain_id,))
-    data = c.fetchall()
+    print("***** domain:", domain)
+    if domain:
+        query = "select domain_id from domains where name=?"
+        c.execute(query,(domain,))
+        data = c.fetchone()
+        domain_id = data[0]
+        query = "select name from topics where domain=?"
+        c.execute(query,(domain_id,))
+        data = c.fetchall()
+    else:
+        query = "select name from topics"
+        c.execute(query)
+        data = c.fetchall()
     if data:
         for d in data:
             output.append(d[0])
         print("output:",output)
         output = data[0]
+    return output
+
+def topics_searched(search_str):
+    output = []
+    database = "knowledge.db"
+    conn = connect_to_db(database)
+    c = conn.cursor()
+    query = "select name from topics"
+    c.execute(query)
+    data = c.fetchall()
+    if data:
+        for d in data:
+            topic = d[0]
+
+            if search_str in topic:
+                output.append(topic)
+        print("output:",output)
+
     return output
 
 def fix():

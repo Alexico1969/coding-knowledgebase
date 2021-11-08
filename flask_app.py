@@ -3,6 +3,7 @@ import sqlite3
 from sqlite3 import Error
 from db import create_connection, create_tables, create_starter_data, get_domains, get_topics, get_knowledge, get_knowledge_all
 from db import add_knowledge, clear_table_knowledge, clear_table_topics, drop_tables, get_1_topic, topics_filtered, fix
+from db import topics_searched
 
 app=Flask(__name__, static_url_path='/static')
 
@@ -24,7 +25,8 @@ def home():
     
     if request.method == "POST":
         action = request.form["action"]
-        if action == "s_topic": #als de $.ajax gebruikt is (een van de topics geklikt)
+        print(">>>>> action:", action)
+        if action == "click_topic": #als de $.ajax gebruikt is (een van de topics geklikt)
             topic = request.form["topic"]
             topic_dict = get_1_topic(topic)
             problem = topic_dict["problem"].replace("\054","<br>").replace("\012","<br>")
@@ -32,6 +34,12 @@ def home():
             resp = make_response(render_template('index.html', domain_list=domain_list, topic_list=topic_list, problem=problem, solution=solution))
             resp.set_cookie('problem', problem)
             resp.set_cookie('solution',solution)
+        elif action == "search": #als de search button is aangeklikt
+            search_str = request.form["search_str"]
+            print(">> Search-str: >> ", search_str)
+            topic_list = topics_searched(search_str)
+            print(">> Topic-list: >> ", topic_list)
+            resp = make_response(render_template('index.html', domain_list=domain_list, topic_list=topic_list, problem=problem, solution=solution))
         else: #als een van de domain buttons geklikt is.
             domain = request.form["action"]
             topic_list = topics_filtered(domain)

@@ -81,7 +81,7 @@ input[type="radio"] {
 
 #clock{
     position:absolute;
-    top: 7vh;
+    top: 6vh;
     right: 50px;
     font-size: 20px;
     border: 2px solid beige;
@@ -222,6 +222,8 @@ h1{
 }
 
 .topic_list{
+    text-align: left;
+    margin-left: 20px;
     height: 70vh;
     overflow-y: auto;
 }
