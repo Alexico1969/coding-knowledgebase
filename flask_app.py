@@ -29,8 +29,8 @@ def home():
         if action == "click_topic": #als de $.ajax gebruikt is (een van de topics geklikt)
             topic = request.form["topic"]
             topic_dict = get_1_topic(topic)
-            problem = topic_dict["problem"].replace("\054","<br>").replace("\012",",")
-            solution = topic_dict["solution"].replace("\054","<br>").replace("\012",",")
+            problem = topic_dict["problem"].replace("\054",",").replace("\012","<br>")
+            solution = topic_dict["solution"].replace("\054",",").replace("\012","<br>")
             resp = make_response(render_template('index.html', domain_list=domain_list, topic_list=topic_list, problem=problem, solution=solution))
             resp.set_cookie('problem', problem)
             resp.set_cookie('solution',solution)
@@ -87,8 +87,8 @@ def change():
             print("*** TOPIC CLICKED !! ***")
             topic = request.form["topic"]
             topic_dict = get_1_topic(topic)
-            problem = topic_dict["problem"].replace("\054","<br>").replace("\012","<br>")
-            solution = topic_dict["solution"].replace("\054","<br>").replace("\012","<br>")
+            problem = topic_dict["problem"]
+            solution = topic_dict["solution"]
             domain = topic_dict["domain"]
             print('*1', domain)
             resp = make_response(render_template('change.html', domain_list=domain_list, topic_list=topic_list, problem=problem, solution=solution))
