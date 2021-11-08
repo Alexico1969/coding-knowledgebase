@@ -13,7 +13,7 @@ create_connection(r"knowledge.db")
 #create_starter_data()  # run just once to get the first domains in the db
 #clear_table_knowledge()  # if you want to empty table knowledge
 #clear_table_topics()  # if you want to empty table topics
-fix()
+#fix()
 
 @app.route('/',methods=['GET','POST'])
 def home():
