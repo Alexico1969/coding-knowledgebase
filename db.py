@@ -186,16 +186,13 @@ def change_knowledge(domain, topic, problem, solution):
     except:
         print("error with data, data = ", data)
         print("error with data, name to be found = ", domain)
-    query = '''insert into topics (name, domain) values (?,?)'''
-    c.execute(query, (topic,domain))
-    conn.commit()
 
     query = '''select topic_id from topics where name=?'''
     c.execute(query, (topic,))
     data = c.fetchall()
     topic_id = data[0][0]
     
-    query= ''' update knowledge set domain=?, problem=?, solution =? where topic=?'''
+    query= '''update knowledge set domain=?, problem=?, solution =? where topic=?'''
     c.execute(query, (domain_id, problem, solution, topic_id))
     conn.commit()
     print("!! Knowledge updated !")
