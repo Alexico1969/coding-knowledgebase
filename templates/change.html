@@ -72,7 +72,6 @@
     /* -------- When clicked on a topic ---------*/
 
     $(".topic").click(function(event){
-        $("#JS").prop("checked",true);
         topic = $(this).text();
         Cookies.set('topic', topic);
 
@@ -89,8 +88,8 @@
                 data: data,
                 success: function(){console.log("!!!");},
                 complete: function(response){
-                    var problem = Cookies.get("problem");
-                    var solution = Cookies.get("solution");
+                    var problem = Cookies.get("problem").replace(/\\054/g, ',').replace(/\\012/g, '<br>');
+                    var solution = Cookies.get("solution").replace(/\\054/g, ',').replace(/\\012/g, '<br>');
                     var domain = Cookies.get("domain");
                     $("#problem_input").val(problem);
                     $("#solution_input").val(solution);
