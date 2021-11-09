@@ -48,10 +48,10 @@
                 <h2>Knowledge</h2>
                 <br>
                 <h3>Problem</h3>
-                <div id="problem">{{problem|safe}}</div>
+                <div id="problem">{{problem}}</div>
                 <br>
                 <h3>Solution</h3>
-                <div id="solution">{{solution|safe}}</div>
+                <div id="solution">{{solution}}</div>
             </div>
         </div>
     </div>
@@ -88,14 +88,13 @@
                 data: data,
                 success: function(){console.log("!!!");},
                 complete: function(response){
-                    var problem = Cookies.get("problem");
-                    var solution = Cookies.get("solution");
-                    console.log("problem: ", problem);
+                    var problem = Cookies.get("problem").replace(/\\054/g, ',').replace(/\\012/g, '<br>');
+                    var solution = Cookies.get("solution").replace(/\\054/g, ',').replace(/\\012/g, '<br>');
                     $("#problem").html("<p class='problem'>" + problem + "</p>");
                     $("#solution").html("<p class='solution'>" + solution + "</p>");
                     }
                     ,
-                dataType: "json"
+                    dataType: "json"
                 });
             
     })

@@ -195,7 +195,6 @@ def change_knowledge(domain, topic, problem, solution):
     data = c.fetchall()
     topic_id = data[0][0]
     
-    query = '''insert into knowledge (domain, topic , problem, solution) values (?,?,?,?)'''
     query= ''' update knowledge set domain=?, problem=?, solution =? where topic=?'''
     c.execute(query, (domain_id, problem, solution, topic_id))
     conn.commit()
@@ -291,9 +290,20 @@ def fix():
     database = "knowledge.db"
     conn = connect_to_db(database)
     c = conn.cursor()
-    query = '''delete from topics where topic_id=6'''
+    
+    query = "select * from topics"
+    c.execute(query)
+    data = c.fetchall()
+    for d in data:
+        print(d[0], " - ", d[1])
+
+    query = '''delete from topics where name="SQL Query not working"'''
     c.execute(query)
     conn.commit()
-    query = '''delete from knowledge where topic=6'''
+    query = '''delete from knowledge where topic=2'''
+    c.execute(query)
+    query = '''delete from knowledge where topic=5'''
+    c.execute(query)
+    query = '''delete from knowledge where topic=7'''
     c.execute(query)
     conn.commit()
