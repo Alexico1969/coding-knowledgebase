@@ -40,8 +40,9 @@ def home():
             topic_list = topics_searched(search_str)
             print(">> Topic-list: >> ", topic_list)
             resp = make_response(render_template('index.html', domain_list=domain_list, topic_list=topic_list, problem=problem, solution=solution))
-        else: #als een van de domain buttons geklikt is.
+        else: #als een van de domain buttons geklikt is.            
             domain = request.form["action"]
+            print("domain clicked: ", domain)
             if domain == "All":
                 topic_list = get_topics()
             else:

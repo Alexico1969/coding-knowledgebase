@@ -250,13 +250,10 @@ def topics_filtered(domain):
     c = conn.cursor()
     print("***** domain:", domain)
     if domain:
-        query = "select domain_id from domains where name=?"
-        c.execute(query,(domain,))
-        data = c.fetchone()
-        domain_id = data[0]
         query = "select name from topics where domain=?"
-        c.execute(query,(domain_id,))
+        c.execute(query,(domain,))
         data = c.fetchall()
+        print("*5", data)
     else:
         query = "select name from topics"
         c.execute(query)
@@ -266,6 +263,7 @@ def topics_filtered(domain):
             output.append(d[0])
         print("output:",output)
         output = data[0]
+    print("*3", output)
     return output
 
 def topics_searched(search_str):
@@ -295,15 +293,15 @@ def fix():
     c.execute(query)
     data = c.fetchall()
     for d in data:
-        print(d[0], " - ", d[1])
+        print(d[0], " - ", d[1], " - ", d[2])
 
-    query = '''delete from topics where name="SQL Query not working"'''
-    c.execute(query)
-    conn.commit()
-    query = '''delete from knowledge where topic=2'''
-    c.execute(query)
-    query = '''delete from knowledge where topic=5'''
-    c.execute(query)
-    query = '''delete from knowledge where topic=7'''
-    c.execute(query)
-    conn.commit()
+    #query = '''delete from topics where name="SQL Query not working"'''
+    #c.execute(query)
+    #conn.commit()
+    #query = '''delete from knowledge where topic=2'''
+    #c.execute(query)
+    #query = '''delete from knowledge where topic=5'''
+    #c.execute(query)
+    #query = '''delete from knowledge where topic=7'''
+    #c.execute(query)
+    #conn.commit()
