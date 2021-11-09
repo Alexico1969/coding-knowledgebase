@@ -1,0 +1,55 @@
+CSS change/update doesn't show on page
+
+Sometimes you make a change to your CSS but when you refresh the HTML page the changes don't show.
+
+Clear your browser cache, then refresh.
+
+
+---------------------------------------
+
+
+SQL Query not working
+
+Sometimes you execute a query. But it doesn't seem to work or do anything.
+
+Good chance you forgot to commit()
+(don't forget the parentheses)
+
+----------------------------------------
+
+After AJAX POST request from html file, no update on jinja2 variables
+
+When performing an AJAX request from an html file, using JQuery ($.ajax), type: 'POST', you can't update the website using jinja2's variables ( {{variable-name}} ). 
+
+Using cookies could be a work-around. 'make_response' from flask + .set_cookie in your Flask py file. The cookie plugin in JQuery Cookies.get() in your HTML file.
+
+
+----------------------------------------
+
+Weird HTML escape codes appearing when using cookies. 054 012
+
+When using cookies, you might see some weird slash-054 or slash-012 escape codes produced by your JS vars. 
+
+Use the .replace() method to fix that: forward slash - back slash - back slash - 054 - forward slash - g
+
+
+----------------------------------------
+
+In Sqlite, in a query that uses ? for variable input, unexplainable error.
+
+When you use a query in SQlite, using '?' for variable input, you might get a weird, unexplainable error.
+
+You might have to put a comma after your parameter, if you only have one: "get * from table where x = ?", (my_var,)
+
+
+----------------------------------------
+
+'flask run' doesn't work
+
+When you try to run Flask locally, and it gives you an error: 
+Error: Could not locate a Flask application.
+
+In git bash : export FLASK_APP=flask_app
+Command line: set FLASK_APP=flask_app
+
+NO SPACES !

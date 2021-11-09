@@ -262,7 +262,6 @@ def topics_filtered(domain):
         for d in data:
             output.append(d[0])
         print("output:",output)
-        output = data[0]
     print("*3", output)
     return output
 
