@@ -279,7 +279,7 @@ def topics_searched(search_str):
         for d in data:
             topic = d[0]
 
-            if search_str in topic:
+            if search_str.casefold() in topic.casefold():
                 output.append(topic)
         print("output:",output)
 
