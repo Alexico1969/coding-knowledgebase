@@ -192,6 +192,11 @@ def change_knowledge(domain, topic, problem, solution):
     data = c.fetchall()
     topic_id = data[0][0]
     
+    query= '''update topics set domain=? where topic_id=?'''
+    c.execute(query, (domain, topic_id))
+    conn.commit()
+    
+    
     query= '''update knowledge set domain=?, problem=?, solution =? where topic=?'''
     c.execute(query, (domain_id, problem, solution, topic_id))
     conn.commit()

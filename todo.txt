@@ -1,0 +1,2 @@
+- Make the 'new - alert' indicator and the 'change - alert' indicator align with the time / top menu buttons
+- Make the search function work for the '/change' page
