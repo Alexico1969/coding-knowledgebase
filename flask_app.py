@@ -104,6 +104,12 @@ def change():
             change_knowledge(domain, topic, problem, solution)
             print("*2 action=", action)
             resp = make_response(render_template('change.html', domain_list=domain_list, topic_list=topic_list, problem=problem, solution=solution))
+        elif action == "search": #als de search button is aangeklikt
+            search_str = request.form["search_str"]
+            print(">> Search-str: >> ", search_str)
+            topic_list = topics_searched(search_str)
+            print(">> Topic-list: >> ", topic_list)
+            resp = make_response(render_template('change.html', domain_list=domain_list, topic_list=topic_list, problem=problem, solution=solution))
         else:
             resp = make_response(render_template('change.html', domain_list=domain_list, topic_list=topic_list, problem=problem, solution=solution))
 
