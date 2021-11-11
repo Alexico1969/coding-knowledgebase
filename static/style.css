@@ -92,7 +92,7 @@ input[type="radio"] {
 
 #new_warning{
     position:absolute;
-    top: 7vh;
+    top: 6vh;
     right: 250px;
     background-color: lightgreen;
     color: black;
@@ -105,7 +105,7 @@ input[type="radio"] {
 
 #change_warning{
     position:absolute;
-    top: 7vh;
+    top: 6vh;
     right: 250px;
     background-color: rgb(241, 202, 24);
     color: black;
